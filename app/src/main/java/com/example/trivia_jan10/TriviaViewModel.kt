@@ -16,6 +16,10 @@ class TriviaViewModel : ViewModel() {
     private var questionsAnswered = 0
     private var answeredCorrectly = 0
 
+    init {
+        _currentQuestion.value = listOfQuestion[0]
+    }
+
     fun getPercentCorrect() = (answeredCorrectly / listOfQuestion.size) * 100
 
     fun onQuestionAnswered(answer: Answer) {
@@ -31,7 +35,7 @@ class TriviaViewModel : ViewModel() {
     fun resetGame() {
         questionsAnswered = 0
         answeredCorrectly = 0
-        _currentQuestion.value = null
+        _currentQuestion.value = listOfQuestion[0]
         _isGameOver.value = false
     }
 }

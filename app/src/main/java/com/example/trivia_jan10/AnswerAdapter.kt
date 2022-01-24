@@ -19,9 +19,11 @@ class AnswerAdapter(
                 false
             )
         ).also { viewHolder ->
-            listener.invoke(
-                listOfAnswers[viewHolder.adapterPosition]
-            )
+            viewHolder.itemView.setOnClickListener {
+                listener.invoke(
+                    listOfAnswers[viewHolder.adapterPosition]
+                )
+            }
         }
     }
 

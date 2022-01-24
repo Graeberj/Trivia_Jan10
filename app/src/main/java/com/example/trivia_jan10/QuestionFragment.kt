@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trivia_jan10.databinding.FragmentQuestionBinding
 
 class QuestionFragment : Fragment() {
@@ -29,6 +31,10 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = AnswerAdapter(this::onAnswerSelected)
         with(binding) {
+            questionRv.apply {
+                adapter = this@QuestionFragment.adapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
             viewModel.currentQuestion.observe(viewLifecycleOwner) { question ->
                 if (question == null) return@observe
                 questionTv.text = question.question
@@ -36,7 +42,8 @@ class QuestionFragment : Fragment() {
             }
             viewModel.isGameOver.observe(viewLifecycleOwner) { shouldNavigate ->
                 if (shouldNavigate) {
-                    // TODO: implement navigation logic
+                    val direction = QuestionFragmentDirections.actionQuestionFragmentToEndGameFragment()
+                    findNavController().navigate(direction)
                 }
             }
         }

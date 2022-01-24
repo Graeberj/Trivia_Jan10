@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.trivia_jan10.databinding.FragmentWelcomeBinding
 
 class EndGameFragment : Fragment() {
@@ -31,7 +32,8 @@ class EndGameFragment : Fragment() {
                 if (percentCorrect >= 70) getString(R.string.you_won) else getString(R.string.you_lost)
             startBtn.setOnClickListener {
                 viewModel.resetGame()
-                // TODO: Implement navigation
+                val direction = EndGameFragmentDirections.actionEndGameFragmentPopUpToWelcomeFragment()
+                findNavController().navigate(direction)
             }
         }
     }
